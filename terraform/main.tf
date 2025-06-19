@@ -43,15 +43,14 @@ resource "azurerm_network_interface" "example" {
 }
 
 resource "azurerm_linux_virtual_machine" "example" {
-  name                = "example-vm"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
-  size                = "Standard_DS1_v2"
-  admin_username      = "adminuser"
-  
-  authentication_type = "password"
-  admin_password      = "P@ssw0rd1234!"
-  
+  name                  = "example-vm"
+  resource_group_name   = azurerm_resource_group.example.name
+  location              = azurerm_resource_group.example.location
+  size                  = "Standard_DS1_v2"
+  admin_username        = "adminuser"
+  admin_password        = "P@ssw0rd1234!"
+  disable_password_authentication = false
+
   network_interface_ids = [
     azurerm_network_interface.example.id,
   ]
@@ -67,7 +66,7 @@ resource "azurerm_linux_virtual_machine" "example" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
-  
+
   tags = {
     environment = "dev"
   }
