@@ -1,24 +1,17 @@
----
-- name: Install Apache and deploy web app
-  hosts: all
-  become: true
-  tasks:
-    - name: Update apt cache and install Apache
-      apt:
-        name: apache2
-        state: present
-        update_cache: yes
+variable "vm_name" {
+  description = "Name of the virtual machine"
+  type        = string
+  default     = "devops-vm"
+}
 
-    - name: Copy static index.html to Apache root directory
-      copy:
-        src: ../app/index.html
-        dest: /var/www/html/index.html
-        owner: www-data
-        group: www-data
-        mode: 0644
+variable "location" {
+  description = "Azure location"
+  type        = string
+  default     = "East US"
+}
 
-    - name: Ensure Apache service is running
-      service:
-        name: apache2
-        state: started
-        enabled: yes
+variable "resource_group_name" {
+  description = "Resource group name"
+  type        = string
+  default     = "devops-rg"
+}
